@@ -39,47 +39,167 @@
 
 // Include application, user and local libraries
 #include "LocalLibrary.h"
-
-
+#include <Wire.h>
+#include "DHT.h"
+#include "Stepper.h"
+//#include "LiquidCrystal.h"
+//#include "RTClib.h"
+#include "I2Cdev.h"
+#include "MPU6050_6Axis_MotionApps20.h"
 // Prototypes
+
+
+// Define pins
+//
+uint8_t currentMeasurePin;
+uint8_t relaisK1;   // relais 1 to turn ESC on/off
+uint8_t relaisK2;   // relais 2 to turn ESC on/off
+uint8_t photocellRotation;  // photocell to detect rotation of brushless
+uint8_t photocellStop;  // photocell to detect stop point at max. angel
+uint8_t statusLED;  // blink LED pin 13
 
 
 // Define variables and constants
 //
-// Brief	Name of the LED
-// Details	Each board has a LED but connected to a different pin
-//
-uint8_t myLED;
+int16_t measuredAmp = 0;  // result is in mA
+float resolutionArduino = 5000/1023;   // mV
+float resolutionChip = 0.066;  // V/A
+float offSet = 0;   // offset of ACS712 measured at every (re)start
+int16_t lastArray[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // array of all 10 measured values
+uint8_t loopCounter = 0;   // counter to go through the value array
+int32_t averageResult = 0;  // final result of 10 measurements in mA
+uint8_t numberOfRotations = 0;  // number of current rotation
+uint8_t maximumRotations = 200; // number of maximum rotaions from stop point onwards
+uint8_t stepsPerRevolution = 64;    //number of steps per revolution
+// initialize the stepper library on pins 8 through 11:
+//Stepper myStepper(stepsPerRevolution, 8, 9, 10, 11);
 
+
+//
+// Brief	Rotation Photocell interrupted
+//
+// Add rotation photocell code
+void rotationPhotocellInterrupted()
+{
+    Serial.println("Rotation Photocell interrupted");
+    // count rotations
+}
+
+//
+// Brief	Stop Photocell interrupted
+//
+// Add stop photocell code
+void stopPhotocellInterrupted()
+{
+    Serial.println("Stop Photocell interrupted");
+    // do not rotate any further !!!
+    // stop ESC and set number of rotations to zero
+}
+
+//
+// Brief	measure current with ACS712
+//
+// Add measure current code
+void measureCurrent()
+{
+    measuredAmp = ((int)(analogRead(currentMeasurePin) * resolutionArduino - offSet)/resolutionChip);
+    Serial.print("measured now (mA): ");
+    Serial.println(measuredAmp);
+    
+    measuredAmp = 0;
+    for (byte b = 0; b < 10; b++)
+    {
+        measuredAmp += (int)((analogRead(currentMeasurePin) * resolutionArduino - offSet)/resolutionChip);
+        delay(10);
+    }
+    measuredAmp = measuredAmp/10;
+    //Serial.print("measured after 10 (mA): ");
+    //Serial.println(measuredAmp);
+    
+    lastArray[loopCounter] = measuredAmp;
+    
+    //Serial.println("Array: ");
+    for (byte c = 0; c < 10; c++)
+    {
+        averageResult = averageResult + lastArray[c];
+        //Serial.println(lastArray[c]);
+    }
+    averageResult = averageResult/10;
+    
+    Serial.print("Measured avg. after 1 sec (mA): ");
+    Serial.println(averageResult);
+    //Serial.print("loop #");
+    //Serial.println(loopCounter);
+    
+    if (loopCounter < 9)
+    {
+        loopCounter++;
+    }
+    else
+    {
+        loopCounter = 0;    // reset loop counter
+    }
+    delay(1000);
+}
 
 //
 // Brief	Setup
-// Details	Define the pin the LED is connected to
 //
 // Add setup code 
-void setup() {
-  // myLED pin number
-#if defined(ENERGIA) // All LaunchPads supported by Energia
-    myLED = RED_LED;
-#elif defined(DIGISPARK) // Digispark specific
-    myLED = 1; // assuming model A
-#elif defined(MAPLE_IDE) // Maple specific
-    myLED = BOARD_LED_PIN;
-#elif defined(WIRING) // Wiring specific
-    myLED = 15;
-#else // Arduino, chipKIT, Teensy specific
-    myLED = 13;
-#endif
-
-    pinMode(myLED, OUTPUT);     
+void setup()
+{
+    Serial.begin(9600);
+    Serial.println("This is xCode test with embedXcode");
+    
+    currentMeasurePin = A5;
+    photocellStop = 2;
+    photocellRotation = 3;
+    relaisK1 = 4;
+    relaisK2 = 5;
+    statusLED = 13;
+    
+    pinMode(photocellStop, INPUT_PULLUP);
+    pinMode(photocellRotation, INPUT_PULLUP);
+    pinMode(relaisK1, OUTPUT);
+    pinMode(relaisK2, OUTPUT);
+    pinMode(statusLED, OUTPUT);
+    
+    //attachInterrupt(digitalPinToInterrupt(photocellStop), stopPhotocellInterrupted, RISING);
+    //attachInterrupt(digitalPinToInterrupt(photocellRotation), rotationPhotocellInterrupted, RISING);
+    attachInterrupt(photocellStop, stopPhotocellInterrupted, RISING);
+    attachInterrupt(photocellRotation, rotationPhotocellInterrupted, RISING);
+    //myStepper.setSpeed(60); // set the speed at 60 rpm
+    
+    digitalWrite(relaisK1, LOW);
+    digitalWrite(relaisK2, LOW);
+    
+    digitalWrite(relaisK1, HIGH);
+    digitalWrite(relaisK2, HIGH);
+    
+    blink(statusLED, 5, 500);   // tell user working status
+    
+    for (uint8_t i=0; i<250; i++)
+    {
+        offSet = offSet + (analogRead(currentMeasurePin) * resolutionArduino)/250;
+        delay(10);
+    }
+    
+    blink(statusLED, 5, 500);   // tell user ready status
+    
+    Serial.print("Estimate offset (mV): " );
+    Serial.println(offSet);
+    
+    digitalWrite(relaisK1, LOW);
+    digitalWrite(relaisK2, LOW);
 }
 
 //
 // Brief	Loop
-// Details	Call blink
 //
 // Add loop code 
-void loop() {
-    blink(myLED, 3, 333);
-    delay(1000);
+void loop()
+{
+    measureCurrent();
+    Serial.println("clockwise");
+    //myStepper.step(stepsPerRevolution);
 }

@@ -1,22 +1,20 @@
 //
-// File			LocalLibrary.h
+// File			testLib.h
 // Brief		Library header
 //
 // Project	 	rotationController
 // Developed with [embedXcode](http://embedXcode.weebly.com)
-// 
+//
 // Author		Jonas Scharpf
 // 				brainelectronics
 // Date			07.10.15 18:47
 // Version		<#version#>
-// 
+//
 // Copyright	© Jonas Scharpf, 2015
 // License		<#license#>
 //
 // See			ReadMe.txt for references
 //
-
-
 // Core library - IDE-based
 #if defined(WIRING) // Wiring specific
 #include "Wiring.h"
@@ -38,8 +36,8 @@
 #error Platform not defined
 #endif // end IDE
 
-#ifndef rotationController_LocalLibrary_h
-#define rotationController_LocalLibrary_h
+#ifndef __rotationController__testLib__
+#define __rotationController__testLib__
 //
 // Brief	Blink a LED
 // Details	LED attached to pin is light on then light off
@@ -49,6 +47,6 @@
 //      times number of times
 //      ms cycle duration in ms
 //
-void blink(uint8_t pin, uint8_t times, uint16_t ms);
+void blink2(uint8_t pin, uint8_t times, uint16_t ms);
 
 #endif

@@ -21,12 +21,17 @@
 # List application Arduino/chipKIT/Digispark/Energia/Maple/Microduino/Teensy/Wiring libraries here
 # default = 0 = none
 #
-APP_LIBS_LIST = 0
+# ARDUINO = EEPROM SoftwareSerial SPI Wire Bridge Esplora 
+#	Ethernet Firmata GSM 
+#
+APP_LIBS_LIST = EEPROM SoftwareSerial SPI Wire Ethernet
 
 # List user's libraries here 
 # default = 0 = none
 #
-USER_LIBS_LIST = 0
+
+#
+USER_LIBS_LIST = DHT Stepper LiquidCrystal RTClib I2Cdev MPU6050_6Axis_MotionApps20
 
 # List core, application and user's libraries to be excluded
 # For example, WiFi may crash on Arduino 1.0.2, Esplora on Arduino 1.0.3, Firmata on Teensy 3.0,
@@ -48,7 +53,7 @@ USER_LIBS_LIST = 0
 # BOARD_PORT is optional
 # If not defined, BOARD_PORT = /dev/tty.usb* (default)
 #
-#BOARD_PORT = /dev/tty.usbmodem*
+BOARD_PORT = /dev/tty.usbmodem*
 
 # Xcode takes SKETCHBOOK_DIR from preferences.txt
 # If not defined, each IDE has its own SKETCHBOOK_DIR (default)
@@ -77,4 +82,5 @@ MAKEFILE_PATH  = $(CURRENT_DIR)/Makefiles
 UTILITIES_PATH = $(CURRENT_DIR)/Utilities
 
 include $(MAKEFILE_PATH)/Step1.mk
+
 
