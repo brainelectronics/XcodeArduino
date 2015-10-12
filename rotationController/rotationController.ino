@@ -149,7 +149,7 @@ void measureCurrent()
 void setup()
 {
     Serial.begin(9600);
-    Serial.println("This is xCode test with embedXcode");
+    Serial.println("This is rotationController");
     
     currentMeasurePin = A5;
     photocellStop = 2;
