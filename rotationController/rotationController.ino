@@ -57,7 +57,7 @@ uint8_t relaisK2;   // relais 2 to turn ESC on/off
 uint8_t photocellRotation;  // photocell to detect rotation of brushless
 uint8_t photocellStop;  // photocell to detect stop point at max. angel
 uint8_t statusLED;  // blink LED pin 13
-
+#define DHTPIN 7 // DHT11 pin
 
 // Define variables and constants
 //
@@ -72,8 +72,8 @@ uint8_t numberOfRotations = 0;  // number of current rotation
 uint8_t maximumRotations = 200; // number of maximum rotaions from stop point onwards
 uint8_t stepsPerRevolution = 64;    //number of steps per revolution
 // initialize the stepper library on pins 8 through 11:
-//Stepper myStepper(stepsPerRevolution, 8, 9, 10, 11);
-
+Stepper myStepper(stepsPerRevolution, 8, 9, 10, 11);
+DHT dht(DHTPIN, DHT11);
 
 //
 // Brief	Rotation Photocell interrupted
@@ -143,6 +143,65 @@ void measureCurrent()
 }
 
 //
+// Brief	run a stepper motor
+//
+// Add run motor code
+void runMotor()
+{
+    // step one revolution  in one direction:
+    Serial.println("clockwise");
+    myStepper.step(stepsPerRevolution);
+    delay(500);
+    
+    // step one revolution in the other direction:
+    Serial.println("counterclockwise");
+    myStepper.step(-stepsPerRevolution);
+    delay(500);
+}
+
+//
+// Brief	measure humidity and temperature with DHT11
+//
+// Add measure dht code
+void measureDHT()
+{
+    // Wait a few seconds between measurements.
+    delay(2000);
+    
+    // Reading temperature or humidity takes about 250 milliseconds!
+    // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
+    float h = dht.readHumidity();
+    // Read temperature as Celsius
+    float t = dht.readTemperature();
+    // Read temperature as Fahrenheit
+    float f = dht.readTemperature(true);
+    
+    // Check if any reads failed and exit early (to try again).
+    if (isnan(h) || isnan(t) || isnan(f)) {
+        Serial.println("Failed to read from DHT sensor!");
+        return;
+    }
+    
+    // Compute heat index
+    // Must send in temp in Fahrenheit!
+    // convert back to celsius
+    // (°F − 32) / 1,8
+    float hi = (dht.computeHeatIndex(f, h)-32)/1.8;
+    
+    Serial.print("Humidity: ");
+    Serial.print(h);
+    Serial.print(" %\t");
+    Serial.print("Temperature: ");
+    Serial.print(t);
+    Serial.print("*C %\t");
+    //Serial.print(f);
+    //Serial.print("*F\t");
+    Serial.print("Feels like: ");
+    Serial.print(hi);
+    Serial.println("*C");
+}
+
+//
 // Brief	Setup
 //
 // Add setup code 
@@ -151,11 +210,11 @@ void setup()
     Serial.begin(9600);
     Serial.println("This is rotationController");
     
-    currentMeasurePin = A5;
+    currentMeasurePin = A0;
     photocellStop = 2;
     photocellRotation = 3;
-    relaisK1 = 4;
-    relaisK2 = 5;
+    relaisK1 = 5;
+    relaisK2 = 6;
     statusLED = 13;
     
     pinMode(photocellStop, INPUT_PULLUP);
@@ -168,7 +227,9 @@ void setup()
     //attachInterrupt(digitalPinToInterrupt(photocellRotation), rotationPhotocellInterrupted, RISING);
     attachInterrupt(photocellStop, stopPhotocellInterrupted, RISING);
     attachInterrupt(photocellRotation, rotationPhotocellInterrupted, RISING);
-    //myStepper.setSpeed(60); // set the speed at 60 rpm
+    
+    myStepper.setSpeed(60); // set the speed at 60 rpm
+    dht.begin();
     
     digitalWrite(relaisK1, LOW);
     digitalWrite(relaisK2, LOW);
@@ -200,6 +261,6 @@ void setup()
 void loop()
 {
     measureCurrent();
-    Serial.println("clockwise");
-    //myStepper.step(stepsPerRevolution);
+    runMotor();
+    measureDHT();
 }
