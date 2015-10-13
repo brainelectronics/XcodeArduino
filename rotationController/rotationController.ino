@@ -81,7 +81,7 @@ DHT dht(DHTPIN, DHT11);
 // Add rotation photocell code
 void rotationPhotocellInterrupted()
 {
-    Serial.println("Rotation Photocell interrupted");
+    Serial.println("Rotation-Photocell interrupted");
     // count rotations
 }
 
@@ -91,7 +91,7 @@ void rotationPhotocellInterrupted()
 // Add stop photocell code
 void stopPhotocellInterrupted()
 {
-    Serial.println("Stop Photocell interrupted");
+    Serial.println("Stop-Photocell interrupted");
     // do not rotate any further !!!
     // stop ESC and set number of rotations to zero
 }
