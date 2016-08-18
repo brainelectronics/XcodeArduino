@@ -5,19 +5,31 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
+<<<<<<< HEAD
 	<string>3B0BD51A-2AFD-461A-9282-721D70533A2A</string>
+=======
+	<string>C1EE5808-69E8-4A93-B212-5FD32C5D178F</string>
+>>>>>>> af8c0c43475af9d649e4c725baf9a1c53f20cc47
 	<key>IDESourceControlProjectName</key>
 	<string>rotationController</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+<<<<<<< HEAD
 		<key>48DE38B8-BAC1-4F43-9975-D18313A2C743</key>
+=======
+		<key>A267C4F1-0140-424F-9B8F-B54F802282F0</key>
+>>>>>>> af8c0c43475af9d649e4c725baf9a1c53f20cc47
 		<string>https://github.com/brainelectronics/XcodeArduino.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>rotationController.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+<<<<<<< HEAD
 		<key>48DE38B8-BAC1-4F43-9975-D18313A2C743</key>
+=======
+		<key>A267C4F1-0140-424F-9B8F-B54F802282F0</key>
+>>>>>>> af8c0c43475af9d649e4c725baf9a1c53f20cc47
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,16 +37,26 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
+<<<<<<< HEAD
 	<string>48DE38B8-BAC1-4F43-9975-D18313A2C743</string>
+=======
+	<string>A267C4F1-0140-424F-9B8F-B54F802282F0</string>
+>>>>>>> af8c0c43475af9d649e4c725baf9a1c53f20cc47
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
+<<<<<<< HEAD
 			<string>48DE38B8-BAC1-4F43-9975-D18313A2C743</string>
 			<key>IDESourceControlWCCName</key>
 			<string>rotationController</string>
+=======
+			<string>A267C4F1-0140-424F-9B8F-B54F802282F0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>XcodeArduino</string>
+>>>>>>> af8c0c43475af9d649e4c725baf9a1c53f20cc47
 		</dict>
 	</array>
 </dict>
