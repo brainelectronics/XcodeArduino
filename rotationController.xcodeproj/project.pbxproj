@@ -218,6 +218,7 @@
 		AA2A151007184849AA0000FD /* GSM3SMSService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAAA151007184849AA0000FD /* GSM3SMSService.cpp */; };
 		DF2E249F1BC5843700C04CD1 /* LocalLibrary.h in Sources */ = {isa = PBXBuildFile; fileRef = DFBE249F1BC5843700C04CD1 /* LocalLibrary.h */; };
 		DF2E24EF1BC5843800C04CD1 /* rotationController.ino in Sources */ = {isa = PBXBuildFile; fileRef = DFBE24EF1BC5843800C04CD1 /* rotationController.ino */; };
+		DF39D9941BCEDCFD0005CD56 /* Servo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF39D9921BCEDCFD0005CD56 /* Servo.cpp */; };
 		DF4EC47A1BCC0BAD0031B046 /* testLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF4EC4781BCC0BAD0031B046 /* testLib.cpp */; };
 		DF4EC4A51BCC10200031B046 /* DHT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF4EC4A31BCC10200031B046 /* DHT.cpp */; };
 		DF4EC4B91BCC10C70031B046 /* Stepper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF4EC4B71BCC10C70031B046 /* Stepper.cpp */; };
@@ -439,6 +440,8 @@
 		AAAA151007184849AA0000FB /* GSM3ShieldV1VoiceProvider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSM3ShieldV1VoiceProvider.cpp; sourceTree = "<group>"; };
 		AAAA151007184849AA0000FC /* GSM3ShieldV1VoiceProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSM3ShieldV1VoiceProvider.h; sourceTree = "<group>"; };
 		AAAA151007184849AA0000FD /* GSM3SMSService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSM3SMSService.cpp; sourceTree = "<group>"; };
+		DF39D9921BCEDCFD0005CD56 /* Servo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Servo.cpp; sourceTree = "<group>"; };
+		DF39D9931BCEDCFD0005CD56 /* Servo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Servo.h; sourceTree = "<group>"; };
 		DF4EC4781BCC0BAD0031B046 /* testLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testLib.cpp; sourceTree = "<group>"; };
 		DF4EC4791BCC0BAD0031B046 /* testLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testLib.h; sourceTree = "<group>"; };
 		DF4EC4A31BCC10200031B046 /* DHT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DHT.cpp; sourceTree = "<group>"; };
@@ -1147,6 +1150,8 @@
 				DFBE249F1BC5843700C04CD1 /* LocalLibrary.h */,
 				DF4EC4781BCC0BAD0031B046 /* testLib.cpp */,
 				DF4EC4791BCC0BAD0031B046 /* testLib.h */,
+				DF39D9921BCEDCFD0005CD56 /* Servo.cpp */,
+				DF39D9931BCEDCFD0005CD56 /* Servo.h */,
 				DF4EC4D21BCC125C0031B046 /* I2Cdev */,
 				DF4EC4CE1BCC12440031B046 /* RTClib */,
 				DF4EC4CC1BCC12360031B046 /* MPU6050 */,
@@ -1548,6 +1553,7 @@
 				AA2A151007184849AA0000C6 /* GSM3MobileCellManagement.h in Sources */,
 				AA2A151007184849AA0000C7 /* GSM3MobileClientProvider.cpp in Sources */,
 				AA2A151007184849AA0000C8 /* GSM3MobileClientProvider.h in Sources */,
+				DF39D9941BCEDCFD0005CD56 /* Servo.cpp in Sources */,
 				AA2A151007184849AA0000C9 /* GSM3MobileClientService.cpp in Sources */,
 				AA2A151007184849AA0000CA /* GSM3MobileClientService.h in Sources */,
 				AA2A151007184849AA0000CB /* GSM3MobileDataNetworkProvider.cpp in Sources */,
